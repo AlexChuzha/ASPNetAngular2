@@ -7,14 +7,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var Item = /** @class */ (function () {
+    function Item(purchase, price) {
+        this.purchase = purchase;
+        this.price = price;
+        this.done = false;
+    }
+    return Item;
+}());
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.name = '';
+        this.items = [
+            { purchase: "Хлеб", done: false, price: 15.9 },
+            { purchase: "Масло", done: false, price: 60 },
+            { purchase: "Картофель", done: true, price: 22.6 },
+            { purchase: "Сыр", done: false, price: 310 }
+        ];
     }
+    AppComponent.prototype.addItem = function (text, price) {
+        if (text == null || text == undefined || text.trim() == "")
+            return;
+        if (price == null || price == undefined)
+            return;
+        this.items.push(new Item(text, price));
+    };
     AppComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: "<h1>\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C {{name}}!</h1>\n                <label>\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043C\u044F:</label>\n                <input [(ngModel)]=\"name\" placeholder=\"name\">"
+            selector: 'purchase-app',
+            template: "<div class=\"page-header\">\n        <h1> \u0421\u043F\u0438\u0441\u043E\u043A \u043F\u043E\u043A\u0443\u043F\u043E\u043A </h1>\n    </div>\n    <div class=\"panel\">\n        <div class=\"form-inline\">\n            <div class=\"form-group\">\n                <div class=\"col-md-8\">\n                    <input class=\"form-control\" [(ngModel)]=\"text\" placeholder = \"\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\" />\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"col-md-6\">\n                    <input type=\"number\" class=\"form-control\" [(ngModel)]=\"price\" placeholder=\"\u0426\u0435\u043D\u0430\" />\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"col-md-offset-2 col-md-8\">\n                    <button class=\"btn btn-default\" (click)=\"addItem(text, price)\">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C</button>\n                </div>\n            </div>\n        </div>\n        <table class=\"table table-striped\">\n            <thead>\n                <tr>\n                    <th>\u041F\u0440\u0435\u0434\u043C\u0435\u0442</th>\n                    <th>\u0426\u0435\u043D\u0430</th>\n                    <th>\u041A\u0443\u043F\u043B\u0435\u043D\u043E</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let item of items\">\n                    <td>{{item.purchase}}</td>\n                    <td>{{item.price}}</td>\n                    <td><input type=\"checkbox\" [(ngModel)]=\"item.done\" /></td>\n                </tr>\n            </tbody>\n        </table>\n    </div>"
         })
     ], AppComponent);
     return AppComponent;
